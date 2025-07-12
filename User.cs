@@ -83,5 +83,20 @@ namespace MiniBankSystemWithOOP
                 Console.WriteLine("Deposit amount must be positive.");
             }
         }
+
+        // Method to withdraw money
+        public void Withdraw(double amount)
+        {
+            if (amount > 0 && amount <= Balance)
+            {
+                Balance -= amount;
+                Console.WriteLine($"Withdrew {amount:C} from account {AccountNumber}. New balance: {Balance:C}");
+            }
+            else
+            {
+                Console.WriteLine("Withdrawal amount must be positive and less than or equal to the current balance.");
+            }
+        }
+
     }
 }
