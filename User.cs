@@ -23,6 +23,20 @@ namespace MiniBankSystemWithOOP
         // Static fields with the namw of Bank
         object BankName = "MiniBank";
 
+        // Default Constructor
+        public User()
+        {
+            AccountNumber = 0;
+            Name = "Unknown";
+            NationalID = "00000000000";
+            Balance = 0.0;
+            PhoneNumber = "000-000-0000";
+            Address = "Unknown";
+            HasActiveLoan = false;
+            LoanAmount = 0;
+            LoanInterestRate = 0;
+        }
+
         // Parameterized Constructor
         public User(int accountNumber, string name, string nationalID, double initialBalance, string phone, string address, object bankName)
         {
