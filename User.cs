@@ -126,5 +126,11 @@ namespace MiniBankSystemWithOOP
             }
         }
 
+        // Request Loan
+        public void RequestLoan(double amount)
+        {
+            Console.WriteLine($"Succesfully submit your loan request");
+        }
+
     }
 }
