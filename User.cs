@@ -32,11 +32,12 @@ namespace MiniBankSystemWithOOP
             get { return userCount; }
         }
 
-        // Static constructor to initialize the user count
+        // Static constructor to To welcome the user upon entering the site
         static User()
         {
-            userCount = 0; // Initialize user count to zero
+            Console.WriteLine("Welcome to MiniBank! We are glad to have you here.");
         }
+       
         // Default Constructor
         public User()
         {
