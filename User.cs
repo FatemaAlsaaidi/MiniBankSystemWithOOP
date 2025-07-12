@@ -20,8 +20,11 @@ namespace MiniBankSystemWithOOP
         public double LoanAmount { get; private set; }
         public double LoanInterestRate { get; private set; }
 
+        // Static fields with the namw of Bank
+        object BankName = "MiniBank";
+
         // Parameterized Constructor
-        public User(int accountNumber, string name, string nationalID, double initialBalance, string phone, string address)
+        public User(int accountNumber, string name, string nationalID, double initialBalance, string phone, string address, object bankName)
         {
             AccountNumber = accountNumber;
             Name = name;
@@ -32,6 +35,7 @@ namespace MiniBankSystemWithOOP
             HasActiveLoan = false;
             LoanAmount = 0;
             LoanInterestRate = 0;
+            BankName = bankName;
         }
     }
 }
