@@ -69,5 +69,19 @@ namespace MiniBankSystemWithOOP
             LoanInterestRate = 0;
             BankName = bankName;
         }
+
+        // Method to deposit money
+        public void Deposit(double amount)
+        {
+            if (amount > 0)
+            {
+                Balance += amount;
+                Console.WriteLine($"Deposited {amount:C} to account {AccountNumber}. New balance: {Balance:C}");
+            }
+            else
+            {
+                Console.WriteLine("Deposit amount must be positive.");
+            }
+        }
     }
 }
