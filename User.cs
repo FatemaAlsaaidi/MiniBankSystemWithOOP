@@ -112,5 +112,19 @@ namespace MiniBankSystemWithOOP
             }
         }
 
+        // Update address
+        public void UpdateAddress(string newAddress)
+        {
+            if (!string.IsNullOrEmpty(newAddress))
+            {
+                Address = newAddress;
+                Console.WriteLine($"Address updated to {Address} for account {AccountNumber}.");
+            }
+            else
+            {
+                Console.WriteLine("Invalid address.");
+            }
+        }
+
     }
 }
