@@ -10,6 +10,8 @@
             User user3 = new User("Sara", "2222222222", 300.0, "91234569", "Muscat");
             Console.WriteLine(user1.Name); // Display the name of user 1
 
+            user1.Deposit(50.0); // Deposit money into user 1's account
+
         }
     }
 }
