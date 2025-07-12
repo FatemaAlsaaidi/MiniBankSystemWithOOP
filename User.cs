@@ -23,6 +23,15 @@ namespace MiniBankSystemWithOOP
         // Static fields with the namw of Bank
         object BankName = "MiniBank";
 
+        // Static field to keep track of the number of users
+        private static int userCount = 0;
+
+        // Static property to get the number of users
+        public static int UserCount
+        {
+            get { return userCount; }
+        }
+
         // Default Constructor
         public User()
         {
@@ -38,9 +47,12 @@ namespace MiniBankSystemWithOOP
         }
 
         // Parameterized Constructor
-        public User(int accountNumber, string name, string nationalID, double initialBalance, string phone, string address, object bankName)
+        public User(string name, string nationalID, double initialBalance, string phone, string address, object bankName)
         {
-            AccountNumber = accountNumber;
+            // Increment user count when a new user is created
+            userCount++;
+
+            AccountNumber = userCount;
             Name = name;
             NationalID = nationalID;
             Balance = initialBalance;
