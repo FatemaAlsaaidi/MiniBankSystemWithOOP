@@ -98,5 +98,19 @@ namespace MiniBankSystemWithOOP
             }
         }
 
+        // Update phone
+        public void UpdatePhone(string newPhone)
+        {
+            if (!string.IsNullOrEmpty(newPhone))
+            {
+                PhoneNumber = newPhone;
+                Console.WriteLine($"Phone number updated to {PhoneNumber} for account {AccountNumber}.");
+            }
+            else
+            {
+                Console.WriteLine("Invalid phone number.");
+            }
+        }
+
     }
 }
