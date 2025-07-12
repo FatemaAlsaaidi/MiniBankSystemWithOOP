@@ -21,7 +21,7 @@ namespace MiniBankSystemWithOOP
         public double LoanInterestRate { get; private set; }
 
         // Static fields with the namw of Bank
-        object BankName = "MiniBank";
+        string BankName = "MiniBank";
 
         // Static field to keep track of the number of users
         private static int userCount = 0;
@@ -37,7 +37,7 @@ namespace MiniBankSystemWithOOP
         {
             Console.WriteLine("Welcome to MiniBank! We are glad to have you here.");
         }
-       
+
         // Default Constructor
         public User()
         {
@@ -53,7 +53,7 @@ namespace MiniBankSystemWithOOP
         }
 
         // Parameterized Constructor
-        public User(string name, string nationalID, double initialBalance, string phone, string address, object bankName)
+        public User(string name, string nationalID, double initialBalance, string phone, string address, string bankName = "MiniBank")
         {
             // Increment user count when a new user is created
             userCount++;
