@@ -32,6 +32,11 @@ namespace MiniBankSystemWithOOP
             get { return userCount; }
         }
 
+        // Static constructor to initialize the user count
+        static User()
+        {
+            userCount = 0; // Initialize user count to zero
+        }
         // Default Constructor
         public User()
         {
