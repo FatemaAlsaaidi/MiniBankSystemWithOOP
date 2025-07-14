@@ -4,17 +4,39 @@
     {
         static void Main(string[] args)
         {
-            // create objects of User Class
-            User user1 = new User("Fatema", "123456789", 100.0 , "91234567", "Muscat");
-            User user2 = new User("Ahmed", "1111111111", 200.0, "91234568", "Muscat");
-            User user3 = new User("Sara", "2222222222", 300.0, "91234569", "Muscat");
-            Console.WriteLine(user1.Name); // Display the name of user 1
 
-            user1.Deposit(50.0); // Deposit money into user 1's account 
-            Console.WriteLine(user1.Balance);
+            Console.WriteLine("Welcome to Mini Bank System");
+            Console.WriteLine("Select an option:");
+            Console.WriteLine("1. Sign Up");
+            Console.WriteLine("2. Sign In");
+            Console.WriteLine("3. Exit");
 
+            int choice = Convert.ToInt32(Console.ReadLine());
 
+            switch (choice)
+            {
+                case 1:
+                    // Sign Up logic
+                    Console.WriteLine("Sign Up selected.");
+                    Console.Write("Enter your name: ");
+                    string name = Console.ReadLine();
+                    Console.Write("Enter your National ID: ");
+                    string nationalID = Console.ReadLine();
+                    Console.Write("Enter your password: ");
+                    string password = Console.ReadLine();
+                    Console.Write("Enter your phone number: ");
+                    string phoneNumber = Console.ReadLine();
+                    Accounts Account1 = new Accounts(name, nationalID, password, phoneNumber);
+                    Console.WriteLine($"Account created successfully! Account Number: {Accounts.GetAccountNumber}");
+                    break;
+                case 2:
+                    Console.WriteLine("Sign In selected.");
+                    Console.ReadLine(); // Make user hold the screen 
 
-        }
+                    break;
+                case 0: Console.WriteLine("Exiting the system..."); break;
+
+            }
+            }
     }
 }
