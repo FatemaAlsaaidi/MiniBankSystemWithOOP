@@ -26,8 +26,10 @@
                     string password = Console.ReadLine();
                     Console.Write("Enter your phone number: ");
                     string phoneNumber = Console.ReadLine();
-                    Accounts Account1 = new Accounts(name, nationalID, password, phoneNumber);
-                    Console.WriteLine($"Account created successfully! Account Number: {Accounts.GetAccountNumber}");
+                    Console.Write("Enter account type (e.g., Savings, Current): ");
+                    string type = Console.ReadLine();
+                    SignUp(name, nationalID, password, phoneNumber, type);
+                    Console.WriteLine($"Request Account created successfully! Account Number: {Accounts.GetAccountNumber}");
                     break;
                 case 2:
                     Console.WriteLine("Sign In selected.");
@@ -38,5 +40,11 @@
 
             }
             }
+
+        public static string SignUp(string name, string nationalID, string password, string phoneNumber, string type)
+        {
+            Accounts newAccount = new Accounts(name, nationalID, password, phoneNumber, type);
+            return newAccount.AccountNumber1;
+        }
     }
 }
