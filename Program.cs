@@ -4,6 +4,8 @@
     {
         // List for accounts object 
         List<Accounts> accountsList = new List<Accounts>();
+        // queue for account requests
+        Queue<Accounts> accountRequests = new Queue<Accounts>();
         static void Main(string[] args)
         {
 
@@ -43,10 +45,11 @@
             }
             }
 
-        public static string SignUp(string name, string nationalID, string password, string phoneNumber, string type)
+        public static void SignUp(string name, string nationalID, string password, string phoneNumber, string type)
         {
             Accounts newAccount = new Accounts(name, nationalID, password, phoneNumber, type);
-            return newAccount.AccountNumber1;
+            // add the new account to the accounts list
+
         }
     }
 }
