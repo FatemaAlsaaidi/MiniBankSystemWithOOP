@@ -34,27 +34,29 @@ namespace MiniBankSystemWithOOP
         // Defualt Constructor
         public Accounts()
         {
-            Name = "Unknown";
-            NationalID = "0000000000";
-            Password = "password123";
-            PhoneNumber = "000-000-0000";
-            Balance = 0.0;
-            IsActivity = true;
+            name = "Unknown";
+            nationalID = "0000000000";
+            password = "password123";
+            phoneNumber = "000-000-0000";
+            balance = 0.0;
+            isActivity = true;
+            type = "xxxxx";
             AccountCounter++;
-            AccountNumber = GetAccountNumber;
+            accountNumber = GetAccountNumber;
 
         }
         // Constructor with parameters
-        public Accounts(string name, string nationalID, string password, string phoneNumber)
+        public Accounts(string name0, string nationalID0, string password0, string phoneNumber0, string type0)
         {
-            Name = name;
-            NationalID = nationalID;
-            Password = password;
-            PhoneNumber = phoneNumber;
-            Balance = 0.0;
-            IsActivity = true;
+            name = name0;
+            nationalID = nationalID0;
+            password = password0;
+            phoneNumber = phoneNumber0;
+            balance = 0.0;
+            isActivity = true;
+            type = type0;
             AccountCounter++;
-            AccountNumber = GetAccountNumber;
+            accountNumber = GetAccountNumber;
         }
 
         public static string GetAccountNumber
