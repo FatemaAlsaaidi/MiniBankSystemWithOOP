@@ -14,57 +14,62 @@
         static string AdminPassword = "123";
         static void Main(string[] args)
         {
-
-            Console.WriteLine("Welcome to Mini Bank System");
-            Console.WriteLine("Select an option:");
-            Console.WriteLine("1. Sign Up");
-            Console.WriteLine("2. Sign In");
-            Console.WriteLine("3. Exit");
-
-            int choice = Convert.ToInt32(Console.ReadLine());
-
-            switch (choice)
+            do
             {
-                case 1:
-                    // User Sign Up logic
-                    Console.WriteLine("Sign Up selected.");
-                    Console.Write("Enter your name: ");
-                    string name = Console.ReadLine();
-                    Console.Write("Enter your National ID: ");
-                    string nationalID = Console.ReadLine();
-                    Console.Write("Enter your password: ");
-                    string password = Console.ReadLine();
-                    Console.Write("Enter your phone number: ");
-                    string phoneNumber = Console.ReadLine();
-                    Console.Write("Enter account type (e.g., Savings, Current): ");
-                    string type = Console.ReadLine();
-                    SignUp(name, nationalID, password, phoneNumber, type);
-                    Console.WriteLine($"Request Account created successfully! Account Number: {Accounts.GetAccountNumber}");
-                    break;
-                case 2:
-                    Console.Write("Enter your National ID: ");
-                    string id = Console.ReadLine();
-                    Console.Write("Enter your password: ");
-                    string pass = Console.ReadLine();
+                Console.Clear();
+                Console.WriteLine("Welcome to Mini Bank System");
+                Console.WriteLine("Select an option:");
+                Console.WriteLine("1. Sign Up");
+                Console.WriteLine("2. Sign In");
+                Console.WriteLine("0. Exit");
 
-                    if (id == AdminNationalID && pass == AdminPassword)
-                    {
-                        Console.WriteLine("Welcome Admin!");
-                        ProcessAccountRequests();
-                        Console.WriteLine("All account requests have been processed.");
-                    }
-                    else
-                    {
-                        Console.Write("Enter your account number: ");
-                        string accountNumber = Console.ReadLine();
-                        SignIn(accountNumber, pass);
-                    }
-                    Console.ReadLine(); // Make user hold the screen 
+                string choice = Console.ReadLine();
 
-                    break;
-                case 0: Console.WriteLine("Exiting the system..."); break;
+                switch (choice)
+                {
+                    case "1":
+                        // User Sign Up logic
+                        Console.WriteLine("Sign Up selected.");
+                        Console.Write("Enter your name: ");
+                        string name = Console.ReadLine();
+                        Console.Write("Enter your National ID: ");
+                        string nationalID = Console.ReadLine();
+                        Console.Write("Enter your password: ");
+                        string password = Console.ReadLine();
+                        Console.Write("Enter your phone number: ");
+                        string phoneNumber = Console.ReadLine();
+                        Console.Write("Enter account type (e.g., Savings, Current): ");
+                        string type = Console.ReadLine();
+                        SignUp(name, nationalID, password, phoneNumber, type);
+                        Console.WriteLine($"Request Account created successfully! Account Number: {Accounts.GetAccountNumber}");
+                        Console.ReadLine();
+                        break;
+                    case "2":
+                        Console.Write("Enter your National ID: ");
+                        string id = Console.ReadLine();
+                        Console.Write("Enter your password: ");
+                        string pass = Console.ReadLine();
 
-            }
+                        if (id == AdminNationalID && pass == AdminPassword)
+                        {
+                            Console.WriteLine("Welcome Admin!");
+                            ProcessAccountRequests();
+                            Console.WriteLine("All account requests have been processed.");
+                        }
+                        else
+                        {
+                           
+                            SignIn(id, pass);
+                        }
+                        Console.ReadLine(); // Make user hold the screen 
+
+                        break;
+                    case "0": Console.WriteLine("Exiting the system..."); return;
+
+                }
+
+            } while (true);
+
             }
 
         public static void SignUp(string name, string nationalID, string password, string phoneNumber, string type)
