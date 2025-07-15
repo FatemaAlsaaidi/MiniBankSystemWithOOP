@@ -53,7 +53,7 @@ namespace MiniBankSystemWithOOP
             password = password0;
             phoneNumber = phoneNumber0;
             balance = 0.0;
-            isActivity = true;
+            isActivity = false;
             type = type0;
             AccountCounter++;
             accountNumber = GetAccountNumber;
