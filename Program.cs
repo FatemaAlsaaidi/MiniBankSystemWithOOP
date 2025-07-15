@@ -71,7 +71,8 @@
             } while (true);
 
             }
-
+        
+        // Create Request for Create Account  
         public static void SignUp(string name, string nationalID, string password, string phoneNumber, string type)
         {
             Accounts newAccount = new Accounts(name, nationalID, password, phoneNumber, type);
