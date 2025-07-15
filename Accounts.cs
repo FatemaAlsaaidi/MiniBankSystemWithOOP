@@ -23,7 +23,8 @@ namespace MiniBankSystemWithOOP
         // Properties for account details
         public string Name { get { return name; } set { name = value; } }
         public string NationalID { get { return nationalID; } set { nationalID = value; } }
-        public string Password { set {password = value; } }
+        public string Password { get { return password; }  set {password = value; } }
+        
         public string PhoneNumber { get { return phoneNumber; } set { phoneNumber = value; } }
         public double Balance1 { get { return balance; } set { balance = value; } }
         public bool IsActivity1 { get { return isActivity; } set { isActivity = value; } }
