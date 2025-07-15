@@ -94,6 +94,8 @@
                 Console.WriteLine("Invalid account number or password.");
             }
         }
+
+        // Process all account requests in the queue done by user 
         public static void ProcessAccountRequests()
         {
             while (accountRequests.Count > 0)
