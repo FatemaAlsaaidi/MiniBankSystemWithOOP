@@ -13,11 +13,22 @@ namespace MiniBankSystemWithOOP
         // queue for account requests
         static Queue<Accounts> accountRequests = new Queue<Accounts>();
 
-
+        // Minimum Balance for accounts
+        public static double MinimumBalance = 100.00;
 
         // Constant admin information 
         public static string AdminNationalID = "111";
         public static string AdminPassword = "123";
+
+        // Fixed Currency Exchange Rates
+        static readonly Dictionary<string, double> ExchangeRates = new Dictionary<string, double>
+        {
+            {"USD", 3.8},
+            {"EUR", 4.1},
+            {"OMR", 1.0},
+            {"UAE", 10.0}
+        };
+
 
 
         // Properties for account details
@@ -93,7 +104,16 @@ namespace MiniBankSystemWithOOP
             Accounts account = accountsList.FirstOrDefault(a => a.NationalID == UserID && a.Password == UserPassword);
             if (account != null)
             {
-                Console.WriteLine($"Welcome back, {account.Name}!");
+                foreach (Accounts acc in accountsList)
+                {
+                    if (acc.NationalID == UserID && acc.Password == UserPassword)
+                    {
+                        Console.WriteLine($"Welcome {acc.Name}!");
+                        // Call the user menu operations method with the index of the account
+                        UserMenuOperations(accountsList.IndexOf(acc));
+                        return; // Exit after successful sign in
+                    }
+                }
             }
             else
             {
@@ -103,7 +123,372 @@ namespace MiniBankSystemWithOOP
 
         // ========================================================================================== Features for user ==========================================================================================
 
+        public static void UserMenuOperations(int IndexID)
+        {
+            bool inUserMenu = true;
+            // while loop to display the mnue ewhile the flag is true 
+            while (inUserMenu)
+            {
+                Console.Clear();
+                Console.WriteLine("\n------ User Menu Operation ------");
+                Console.WriteLine("1. Deposit");
+                Console.WriteLine("2. Withdraw");
+                Console.WriteLine("3. View Balance");
+                Console.WriteLine("4. Submit Review/Complaint");
+                Console.WriteLine("5. Transfer Money");
+                Console.WriteLine("6. Undo Last Complaint");
+                Console.WriteLine("7. Update Phone Number and Address");
+                Console.WriteLine("8. View Transaction");
+                Console.WriteLine("9. Request a Loan");
+                Console.WriteLine("10. View Active Loan Information");
+                Console.WriteLine("11. Book Appointment For Book Service");
+                Console.WriteLine("0. Return to Main Menu");
+                Console.Write("Select option: ");
+                string userChoice = Console.ReadLine();
 
+                switch (userChoice)
+                {
+                    // case to Deposit
+                    case "1":
+
+                        Console.WriteLine("Proceeding to deposit...");
+                        Deposit(IndexID); // If user exists, proceed with deposit
+                        Console.ReadLine(); // Wait for user input before continuing
+
+                        break;
+                    // case to Withdraw
+                    case "2":
+
+                        Console.WriteLine("Proceeding to withdraw...");
+                        withdraw(IndexID); // If user exists, proceed with withdraw
+                        Console.ReadLine(); // Wait for user input before continuing
+
+                        break;
+                    // case to View Balance
+                    case "3":
+
+                        Console.WriteLine("Proceeding to Check Balance...");
+                        CheckBalance(IndexID); // If user exists, proceed with chech balance
+                        Console.ReadLine(); // Wait for user input before continuing
+
+                        break;
+                    // case to Submit Review/Complaint
+                    /*case "4":
+                        SubmitReview();
+                        Console.ReadLine();
+                        break;
+                    // Transfer Money
+                    case "5":
+                        // Ask user to enter the National ID of the account to transfer money to
+                        Console.WriteLine("Enter the National ID of the account you want to transfer money to.....");
+                        int UserIndexID2 = EnterUserID();
+                        if (UserIndexID2 != -1 && UserIndexID2 != IndexID) // when user login to its account by accountID number, this number save in value IndexID which decalre in "internal calss program" so when want to transer from its account to another account, no need to enter its accountIDNumber agine it save temberary in variable "IndexID"
+                        {
+                            Transfer(IndexID, UserIndexID2); // If user exists, proceed with transfer
+                        }
+                        else if (UserIndexID2 == IndexID)
+                        {
+                            Console.WriteLine("You cannot transfer money to your own account.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Login failed. Please check the National ID of the recipient.");
+                        }
+                        Console.ReadLine(); // Wait for user input before continuing
+                        break;
+                    // Undo Last Complaint
+                    case "6":
+                        UndoLastComplaint();
+                        Console.ReadLine(); // Wait for user input before continuing
+                        break;
+                    // case to Update Phone Number and Address
+                    case "7":
+                        UpdatePhoneAndAddress(IndexID); // If user exists, proceed with update
+                        Console.ReadLine(); // Wait for user input before continuing
+                        break;
+                    // case to View Transaction History
+                    case "8":
+                        Console.WriteLine("Which option do you want to view transaction: ");
+                        Console.WriteLine("1. Display All Your Transaction");
+                        Console.WriteLine("2. Display Transaction For Specific Manth on a Specific Year");
+                        Console.WriteLine("3. View Last N Transactions");
+                        Console.WriteLine("4. View Transactions After a Date");
+                        Console.WriteLine("0. Return to User Menu");
+                        Console.Write("Select option: ");
+                        string choice = Console.ReadLine();
+                        Console.WriteLine();
+
+                        // Use switch to select one of many code blocks to be executed
+                        switch (choice)
+                        {
+                            // case to Display All Your Transaction
+                            case "1":
+                                PrintAllTransactions(IndexID);
+                                break;
+                            // case to Display Transaction For Specific Manth on a Specific Year
+                            case "2":
+                                GenerateMonthlyStatement(IndexID);
+                                break;
+                            // case to View Last N Transactions
+                            case "3":
+                                ViewLastNTransactions(IndexID);
+                                Console.ReadLine();
+                                break;
+                            // case to View Transactions After a Date
+                            case "4":
+                                ViewTransactionsAfterDate(IndexID);
+                                Console.ReadLine();
+                                break;
+                            case "0":
+                                // Return to User Menu
+                                inUserMenu = true; // this will exit the loop and return
+                                break;
+                            // default case if user choice the wronge number within the range of cases 
+                            default:
+                                Console.WriteLine("Wronge Choice number, Try Agine!");
+                                break;
+                        }
+                        Console.ReadLine();
+                        break;
+                    // case to Request a Loan
+                    case "9":
+                        RequestLoan(IndexID);
+                        Console.ReadLine();
+                        break;
+                    // case to View Active Loan Information
+                    case "10":
+                        ViewActiveLoanInfo(IndexID);
+                        Console.ReadLine();
+                        break;
+                    // case to Book Appointment For Book Service
+                    case "11":
+                        RequestBookAppointment(IndexID);
+                        Console.ReadLine();
+                        break;
+
+                    // case to exist from user menu and Return to Main Menu 
+                    */
+                    case "0":
+                        inUserMenu = false; // this will exit the loop and return
+                        break;
+                    // default case if user choice the wronge number within the range of cases 
+                    default:
+                        Console.WriteLine("Wronge Choice number, Try Agine!");
+                        Console.ReadKey();
+                        break;
+                }
+            }
+        }
+
+        // Deposit Function 
+        public static void Deposit(int IndexID)
+        {
+            //if (IndexID < 0 || IndexID >= UserBalances.Count)
+            //{
+            //    Console.WriteLine("Error: Invalid user index for deposit operation.");
+            //    return;
+            //}
+
+            int tries = 0;
+            // Initialize a boolean flag to control the deposit loop.
+            bool IsDeposit = false;
+            // Initialize a variable to store the final parsed deposit amount.
+            double FinalDepositAmount = 0.0;
+            // Initialize an index to find the user's position in the account list.
+
+            // Start a try block to catch potential runtime exceptions.
+            try
+            {
+                // Repeat until a valid deposit is made.
+                do
+                {
+                    Console.WriteLine("Select deposit currency: \n1. OMR\n2. USD\n3. EUR\n4. UAE");
+                    string choice = Console.ReadLine();
+                    string currency = choice == "1" ? "OMR" : choice == "2" ? "USD" : choice == "3" ? "EUR" : choice == "4" ? "UAE" : "";
+
+                    if (string.IsNullOrEmpty(currency))
+                    {
+                        Console.WriteLine("Invalid selection.");
+                        return;
+                    }
+
+                    Console.WriteLine($"Enter the amount to deposit in {currency}: ");
+                    if (!double.TryParse(Console.ReadLine(), out double originalAmount) || originalAmount <= 0)
+                    {
+                        Console.WriteLine("Invalid deposit amount.");
+                        return;
+                    }
+                    // convert double to string 
+                    string DepositAmount = originalAmount.ToString("F2"); // Format to 2 decimal places
+
+                    // Validate the entered amount using a custom method.
+                    bool ValidDepositAmount = Validations.AmountValid(DepositAmount);
+                    if (ValidDepositAmount == false)
+                    {
+                        // Display error if the input is not valid.
+                        Console.WriteLine("Invalid deposit Amount Format, should be  00.00");
+                        IsDeposit = false;
+                        tries++;
+                    }
+                    // If input is valid, find the user index.
+                    else
+                    {
+                        // convert string to double using TryParse
+                        double.TryParse(DepositAmount, out FinalDepositAmount);
+
+                        // Convert to OMR
+                        double rate = ExchangeRates[currency];
+                        double convertedAmount = FinalDepositAmount / rate;
+
+                        Console.WriteLine($"Converted Amount from {currency} : {FinalDepositAmount} to OMR: {convertedAmount:F2}");
+
+                        // Update the user's balance by adding the deposit amount.
+                        accountsList[IndexID].balance = accountsList[IndexID].balance + convertedAmount;
+
+                        // Display success message and the new balance.
+                        Console.WriteLine($"Successfully deposited {convertedAmount} {currency} to your account.");
+                        PrintReceipt(transactionType: "Deposit", amount: convertedAmount, balance: accountsList[IndexID].balance);
+                        // Set the flag to true to exit the loop.
+                        IsDeposit = true;
+
+                        // Record the transaction in the user's transaction history.
+                        //string transactionRecord = $"{AccountUserNationalID[IndexID]},{DateTime.Now:yyyy-MM-dd},Deposit, {FinalDepositAmount},{convertedAmount},{UserBalances[IndexID]}";
+                        //for (int i = UserTransactions.Count; i < UserBalances.Count; i++)
+                        //{
+                        //    UserTransactions.Add(new List<string>());
+                        //}
+
+                        //UserTransactions[IndexID].Add(transactionRecord);
+                        //// Save the user's transactions to a file.
+                        //SaveUserTransactionsToFile();
+                        //UserFeedbackSystem("Deposit");
+                        // Exit the method (if inside a method).
+                        return;
+
+                    }
+                    if (tries == 3)
+                    {
+                        Console.WriteLine("You have exceeded the number of times you are allowed to enter a valid value.");
+                        return;
+                    }
+                } while (IsDeposit == false && tries < 3);
+            }
+            //Print any exception message that occurs during execution.
+            catch (Exception e) { Console.WriteLine(e.Message); }
+
+        }
+        // Withdraw Function 
+        public static void withdraw(int IndexID)
+        {
+            int tries = 0;
+            // Initialize a boolean flag to control the deposit loop.
+            bool IsWithdraw = false;
+            // Initialize a variable to store the final parsed deposit amount.
+            double FinalwithdrawAmount = 0.0;
+            // declare variable print balance after any process
+            double BalanceAfterProcess = 0.0;
+            // Start a try block to catch potential runtime exceptions.
+            try
+            {
+                // Repeat until a valid deposit is made.
+                do
+                {
+
+                    Console.WriteLine("Enter the amount of money you want to withdrw from your balance: ");
+                    string WithdrawAmount = Console.ReadLine();
+                    // Validate the entered amount using a custom method.
+                    bool ValidWithAmount = Validations.AmountValid(WithdrawAmount);
+                    if (ValidWithAmount == false)
+                    {
+                        // Display error if the input is not valid.
+                        Console.WriteLine("Invalid input");
+                        IsWithdraw = false;
+                        tries++;
+                    }
+                    // If input is valid, find the user index.
+                    else
+                    {
+
+                        // convert string to double using TryParse
+                        double.TryParse(WithdrawAmount, out FinalwithdrawAmount);
+                        // check if user balamce is less than or equal MinimumBalance
+                        bool checkBalance = CheckBalanceAmount(FinalwithdrawAmount, IndexID);
+                        if (checkBalance == true)
+                        {
+
+                            // Update the user's balance by adding the deposit amount.
+                            accountsList[IndexID].balance = accountsList[IndexID].balance - FinalwithdrawAmount;
+                            Console.WriteLine($"Successfully withdraw");
+                            Console.WriteLine($"Your Current Balance is {accountsList[IndexID].balance}");
+                            // Record the transaction in the user's transaction history.
+                            PrintReceipt(transactionType: "Withdraw", amount: FinalwithdrawAmount, balance: accountsList[IndexID].balance);
+                            // Record the transaction in the user's transaction history.
+                            //string transactionRecord = $"{DateTime.Now:yyyy-MM-dd},Withdraw,{FinalwithdrawAmount},{UserBalances[IndexID]}";
+                            //for (int i = UserTransactions.Count; i < UserBalances.Count; i++)
+                            //{
+                            //    UserTransactions.Add(new List<string>());
+                            //}
+
+                            //UserTransactions[IndexID].Add(transactionRecord);
+                            //// Save the user's transactions to a file.
+                            //SaveUserTransactionsToFile();
+                            //UserFeedbackSystem("Withdraw");
+                            // Set the flag to true to exit the loop.
+                            IsWithdraw = true;
+                        }
+                        else
+                        {
+                            BalanceAfterProcess = accountsList[IndexID].balance - FinalwithdrawAmount;
+                            Console.WriteLine($"Can not withdraw {FinalwithdrawAmount} from your balance, becouse your balance after with draw is {BalanceAfterProcess} which less than 100.00");
+                        }
+                        return;
+
+                    }
+                    if (tries == 3)
+                    {
+                        Console.WriteLine("You have exceeded the number of times you are allowed to enter a valid value.");
+                        return;
+                    }
+                } while (IsWithdraw == false && tries < 3);
+            }
+            //Print any exception message that occurs during execution.
+            catch (Exception e) { Console.WriteLine(e.Message); }
+        }
+        // Check Balance Function
+        public static void CheckBalance(int IndexID)
+        {
+            Console.WriteLine($"Your Current Balance is {accountsList[IndexID].balance}");
+        }
+
+        // Print Receipt After Deposit/Withdraw 
+        public static void PrintReceipt(string transactionType, double amount, double balance)
+        {
+            Console.WriteLine("\n--- Transaction Receipt ---");
+            Console.WriteLine($"Transaction Type: {transactionType}");
+            Console.WriteLine($"Amount: {amount}");
+            Console.WriteLine($"New Balance: {balance}");
+            Console.WriteLine("---------------------------\n");
+        }
+
+        //************************************ check balance amount to decided if we can withdraw or not *********************************
+        public static bool CheckBalanceAmount(double FinalAmount, int indexID)
+        {
+            // flag 
+            bool GoWithProcess = false;
+            // check if balance has more than Minimum Balance 
+            if ((accountsList[indexID].balance > MinimumBalance) && (FinalAmount <= (accountsList[indexID].balance - MinimumBalance)))
+            {
+                // put flag as true if user can go with process 
+                GoWithProcess = true;
+            }
+            else
+            {
+                // put flag as flase if user can not go with process becoouse its balance has just 100.00$
+                GoWithProcess = false;
+            }
+
+            return GoWithProcess;
+        }
 
         // ========================================================================================== Features for admin ==========================================================================================
 

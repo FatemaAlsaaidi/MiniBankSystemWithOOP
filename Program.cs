@@ -2,6 +2,7 @@
 {
     internal class Program
     {
+        public static bool MainMenue = true;
         
         static void Main(string[] args)
         {
@@ -59,7 +60,7 @@
 
                 }
 
-            } while (true);
+            } while (MainMenue);
 
         }
 
