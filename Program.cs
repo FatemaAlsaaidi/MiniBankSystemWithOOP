@@ -3,9 +3,15 @@
     internal class Program
     {
         // List for accounts object 
-        List<Accounts> accountsList = new List<Accounts>();
+        static List<Accounts> accountsList = new List<Accounts>();
         // queue for account requests
-        Queue<Accounts> accountRequests = new Queue<Accounts>();
+        static Queue<Accounts> accountRequests = new Queue<Accounts>();
+
+
+
+        // Constant admin information 
+        static string AdminNationalID = "111";
+        static string AdminPassword = "123";
         static void Main(string[] args)
         {
 
@@ -20,7 +26,7 @@
             switch (choice)
             {
                 case 1:
-                    // Sign Up logic
+                    // User Sign Up logic
                     Console.WriteLine("Sign Up selected.");
                     Console.Write("Enter your name: ");
                     string name = Console.ReadLine();
@@ -36,7 +42,23 @@
                     Console.WriteLine($"Request Account created successfully! Account Number: {Accounts.GetAccountNumber}");
                     break;
                 case 2:
-                    Console.WriteLine("Sign In selected.");
+                    Console.Write("Enter your National ID: ");
+                    string id = Console.ReadLine();
+                    Console.Write("Enter your password: ");
+                    string pass = Console.ReadLine();
+
+                    if (id == AdminNationalID && pass == AdminPassword)
+                    {
+                        Console.WriteLine("Welcome Admin!");
+                        ProcessAccountRequests();
+                        Console.WriteLine("All account requests have been processed.");
+                    }
+                    else
+                    {
+                        Console.Write("Enter your account number: ");
+                        string accountNumber = Console.ReadLine();
+                        SignIn(accountNumber, pass);
+                    }
                     Console.ReadLine(); // Make user hold the screen 
 
                     break;
@@ -48,8 +70,32 @@
         public static void SignUp(string name, string nationalID, string password, string phoneNumber, string type)
         {
             Accounts newAccount = new Accounts(name, nationalID, password, phoneNumber, type);
-            // add the new account to the accounts list
+            // add the request account the queue
+            accountRequests.Enqueue(newAccount);
 
+        }
+
+        public static void SignIn(string UserID, string password)
+        {
+            // Logic for user sign in
+            Accounts account = accountsList.FirstOrDefault(a => a.NationalID == UserID && a.Password == password);
+            if (account != null)
+            {
+                Console.WriteLine($"Welcome back, {account.Name}!");
+            }
+            else
+            {
+                Console.WriteLine("Invalid account number or password.");
+            }
+        }
+        public static void ProcessAccountRequests()
+        {
+            while (accountRequests.Count > 0)
+            {
+                Accounts account = accountRequests.Dequeue();
+                accountsList.Add(account);
+                Console.WriteLine($"Account for {account.Name} with Account Number {account.AccountNumber1} has been created.");
+            }
         }
     }
 }
