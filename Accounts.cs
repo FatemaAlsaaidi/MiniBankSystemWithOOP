@@ -9,9 +9,9 @@ namespace MiniBankSystemWithOOP
     class Accounts
     {
         // List for accounts object 
-        static List<Accounts> accountsList = new List<Accounts>();
+        public static List<Accounts> accountsList = new List<Accounts>();
         // queue for account requests
-        static Queue<Accounts> accountRequests = new Queue<Accounts>();
+        public static Queue<Accounts> accountRequests = new Queue<Accounts>();
 
         // Minimum Balance for accounts
         public static double MinimumBalance = 100.00;
@@ -49,11 +49,11 @@ namespace MiniBankSystemWithOOP
         public string Password { get { return password; }  set {password = value; } }
         
         public string PhoneNumber { get { return phoneNumber; } set { phoneNumber = value; } }
-        public double Balance1 { get { return balance; } set { balance = value; } }
-        public bool IsActivity1 { get { return isActivity; } set { isActivity = value; } }
-        public string AccountNumber1 { get { return accountNumber; } set { accountNumber = value; } }
-        public string Type1 { get { return type; } set { type = value; } }
-        public string Address1 { get { return address; } set { address = value; } }
+        public double Balance { get { return balance; } set { balance = value; } }
+        public bool IsActivity { get { return isActivity; } set { isActivity = value; } }
+        public string AccountNumber { get { return accountNumber; } set { accountNumber = value; } }
+        public string Type { get { return type; } set { type = value; } }
+        public string Address { get { return address; } set { address = value; } }
 
         // Defualt Constructor
         public Accounts()
@@ -778,9 +778,9 @@ namespace MiniBankSystemWithOOP
                     // If approved, add the account to the accounts list
                     else
                     {
-                        account.IsActivity1 = true; // Set the account as active
+                        account.IsActivity = true; // Set the account as active
                         accountsList.Add(account);
-                        Console.WriteLine($"Account for {account.Name} with Account Number {account.AccountNumber1} has been created.");
+                        Console.WriteLine($"Account for {account.Name} with Account Number {account.AccountNumber} has been created.");
 
                     }
 
